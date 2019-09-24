@@ -1,0 +1,14 @@
+\standalonepreambles
+\subpreamble{figs/big_picture_A.tex}
+\usepackage {tikz, xcolor, ifthen}\usetikzlibrary {shapes,arrows}\usetikzlibrary {positioning}
+\endsubpreamble
+\subpreamble{figs/big_picture_B.tex}
+\usepackage {tikz, xcolor, ifthen}\usetikzlibrary {shapes,arrows}\usetikzlibrary {positioning}
+\endsubpreamble
+\subpreamble{figs/big_picture_C.tex}
+\usepackage {tikz, xcolor, ifthen}\usetikzlibrary {shapes,arrows}\usetikzlibrary {positioning}
+\endsubpreamble
+\subpreamble{figs/latent_pred.tex}
+\usepackage {tikz, xcolor, pgfmath, ifthen}\usetikzlibrary {shapes,arrows}\usetikzlibrary {positioning}\tikzstyle {decision} = [diamond, draw, text width=4.5em,text badly centered, node distance=2cm,inner sep=0pt]\tikzstyle {block} = [rectangle, draw, text width=5em,text centered, rounded corners,minimum height=4em, node distance=3cm]\tikzstyle {line} = [draw, -latex']\tikzstyle {cloud} = [draw, ellipse, node distance=2.5cm, minimum height=2em]\tikzstyle {blank} = [node distance=1cm]\tikzstyle {square} = [regular polygon,regular polygon sides=4]\tikzstyle {var} = [minimum size=2em]\tikzstyle {random} = [circle, minimum width=10mm, draw, inner sep=0pt, font=\scriptsize ]\tikzstyle {rnn} = [square, minimum width=12mm, minimum height=2mm, draw, inner sep=0pt, font=\scriptsize ]\tikzstyle {encoder} = [trapezium, minimum width=10mm, minimum height=6mm, trapezium angle=60,inner sep=0pt, draw, font=\scriptsize ]
+\endsubpreamble
+\endstandalonepreambles

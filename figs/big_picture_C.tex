@@ -1,0 +1,18 @@
+% \documentclass[tikz,crop]{standalone}
+\documentclass[border=15pt, multi, tikz, ifthen, xcolor]{standalone}
+\usepackage{tikz, xcolor, ifthen}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\begin{tikzpicture}[node distance = 2cm, auto]
+    \node [] (o1) {\emph{do}(observations)};
+    \node [right=2mm of o1] (b1) {biology prior};
+    \node [below right=5mm and -3mm of o1] (m1) {model};
+    \node [below=5mm of m1] (b2) {biology posterior};
+    \path [line] (o1) -- (m1);
+    \path [line,dashed] (b1) -- (m1);
+    \path [line,dashed] (m1) -- (b2);
+\end{tikzpicture}
+\end{document}

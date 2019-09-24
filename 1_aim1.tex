@@ -1,0 +1,128 @@
+\section{\aimOne}
+
+\begin{frame}{\qOne}
+	\textbf{Hypothesis:} deep learning spatial models will outperform point process models
+	\begin{itemize}
+		\item Extract neuron fluorescent traces $\rightarrow$ build RNN
+		\item Raw fluorescent observations $\rightarrow$ convolutional deep learning model
+		\item Compare prediction performance on withheld test data
+	\end{itemize}
+\end{frame}
+
+\note{
+	The main buy-in for this talk is that having an  accurate model of brain dynamics is useful. Most approaches today for brain-wide modeling use hand-crafted features in a  preprocessing pipeline that throws away spatial information. How much better can we do at predicting activity if we do not constrain our modeling by biological plausibility?
+}
+
+\begin{frame}{ 2P Experimental setup }
+	\centering
+	\includegraphics[height=\textheight]{media/experimental_setup.png}
+\end{frame}{}
+
+\begin{frame}{ Whole-brain 2P calcium imaging }{Z-projection of 19 planes, 4x real-time, 2Hz}
+	% TODO make video shorter
+	% center figure larger than textwidth
+		\movie[]{\includegraphics[width=0.6\textwidth,center]{media/20190429_f5e2.jpg}}{media/20190429_f5e2.mp4}
+		\vspace{-20mm}
+		\centering
+		\begin{turn}{-90}
+				\begin{minipage}{0.7\textheight}
+					\includegraphics[height=0.5\textheight]{media/larval_atlas}
+			 \end{minipage}
+		 \end{turn}
+
+	 % \includegraphics[height=0.5\textheight]{media/atlas}
+	 \nakedfootnote{Naumann, Fitzgerald, et al. 2016}
+
+	\note{need to change 2P offset for bidirectional imaging: ~2px jitter line-to-line}
+	\note[item]{resting state video, no external stimuli}
+	\note[item]{highlight brain deformation during tail movement}
+	\note[item]{This is a video. About 2/3 way through, brain goes completely dark (!!), then whole brain lights up.}
+\note[item]{Dorsal overview of zebrafish neuroanatomy. DSRGCs (black dots) project via the optic chiasm (OC) to ten contralateral retinal arborization fields(AFs). Pt,pretectum; nMLF, nucleus of the medial longitudinal fasciculus; aHB, anterior hindbrain; RoL, neurons in rhombomere 1; ARTR, anterior rhombencephalic turningregion; vSPNs, ventromedial spinal projection neurons; cHB, caudal hindbrain; M/HB, midbrain-hindbrain border; rh1–5, rhombomeres 1–5. A, anterior; P,posterior.}
+\end{frame}
+
+
+\begin{frame}{ Current approaches to brain-wide modeling }
+	% \setcounter{footnote}{1}
+	\begin{multicols}{2}
+		\adjincludegraphics[width=0.6\textwidth,trim={0 {.42\height} 0 0},clip]{media/caiman.jpg}
+		Extract neuron traces\nakedfootnote{Giovannucci et al. 2019.}
+		\note<1>{In the early days of machine vision, researchers often used handcrafted feature extracters like edge detection to extract lower dimensional features that are then fed into a model. Today, neuroscience is similar: we motion correct a raw movie, identify independent spatial components, separate the sources, and attempt to whiten the signal based on assumptions of calcium indicator dynamics.}
+		\vfill\null\columnbreak
+		\uncover<2>{
+			\adjincludegraphics[width=0.4\textwidth,trim={0 {.7\height} {.65\width} 0},clip]{media/kanaka.jpg}
+			\,
+			Add back spatial information
+		}
+	\end{multicols}
+	% \begin{columns}[t]
+	% 	\begin{column}{0.6\textwidth}
+	% 		\adjincludegraphics[width=\textwidth,trim={0 {.42\height} 0 0},clip]{media/caiman.jpg}
+	% 		Extract neuron traces\nakedfootnote{Giovannucci et al. 2019.}
+	% 		\note<1>{In the early days of machine vision, researchers often used handcrafted feature extracters like edge detection to extract lower dimensional features that are then fed into a model. Today, neuroscience is similar: we motion correct a raw movie, identify independent spatial components, separate the sources, and attempt to whiten the signal based on assumptions of calcium indicator dynamics.}
+	% 		% \vfill\null\columnbreak
+	% 	\end{column}
+	% 	\begin{column}{0.4\textwidth}
+	% 		\uncover<2>{
+	% 			\adjincludegraphics[width=\textwidth,trim={0 {.7\height} {.65\width} 0},clip]{media/kanaka.jpg}
+	% 			\,
+	% 			Add back spatial information
+	% 		}
+	% 	\end{column}
+	% \end{columns}
+	\note<2>{In general, modeling a recurrent neural network is intractable as the number of parameters grows quadradically with a number of neurons. Thus, brain-wide modeling usually involves a sparsity prior based on spatial location. In the neuroscience literature, it is not yet the norm to evaluate performance of modeling on held-out test data so we typically evaluate modeling based on how well it matches previous findings in the literature.}
+	\nakedfootnote<2>{Andalman et al. 2019.}
+\end{frame}{}
+
+\begin{frame}{ Latent-space volume prediction  }{Stochastic embedding}
+	% \adjincludegraphics[width=\textwidth,trim={0 {0.35\height} 0 0},clip]{media/my_architecture.png}
+	\resizebox{\textwidth}{!}{\input{figs/latent_pred}}
+	\uncover<2>{
+		\centering
+		vs. \\
+		$n_{t+5} = A n_t$
+	}
+	\note{Deep learning approach seems powerful, how well does it work? We're going to do both approaches and compare: CNMF vs raw.}
+	\note{\textbf{feedback:} maybe show schematic of what is being compared?}
+\end{frame}{}
+
+\begin{frame}{ Mapping CNMF to space }
+	\includegraphics[width=\textwidth]{media/cnmf_arrow.png}
+\end{frame}{}
+
+\begin{frame}{Train data: LS and VP perform equally well}{$<5\%$ difference in MSE}
+	\centering
+	\begin{figure}
+		\includegraphics[width=\textwidth]{media/train_mse}
+		\caption{Actual (left), least squares prediction (middle), volume prediction (right)}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Test data: VP performs better}{LS has 150\% greater MSE than VP}
+	\centering
+	\begin{figure}
+		\includegraphics[width=\textwidth]{media/test_mse}
+		\caption{Actual (left), least squares prediction (middle), volume prediction (right)}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}{Masked test data: VP performs better}{LS has 40\% greater MSE than VP}
+	\centering
+	\begin{figure}
+		\includegraphics[width=\textwidth]{media/mask_mse}
+		\caption{Actual (left), least squares prediction (middle), volume prediction (right)}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{ CNMF preprocessing reduces VP performance }{Evaluated loss on neuron mask}
+	\begin{center}
+		\includegraphics[height=0.7\textheight]{media/cnmf_pairwise.png}
+	\end{center}
+\end{frame}{}
+
+\begin{frame}{ Extracting causal hypotheses }{Voxels used for predicted locus coeruleus activation}
+% TODO
+    \includegraphics[width=\textwidth]{media/backprop_mask.png}
+		\note{Ask model what is important; here we use backprop}
+		% \note[item]{ideally show (1) variance heatmap (2) backprop very active neuron (3) backprop very quiet neuron (4) forward autodiff of a neuron (influence mapping)}
+\end{frame}{}

@@ -1,0 +1,202 @@
+\documentclass[pdf]{beamer}
+%\mode<presentation>{}
+
+\usepackage{amssymb,amsmath,amsthm,enumerate}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty}
+\usepackage{subcaption}
+\usepackage{bm}
+\usepackage{amsfonts,amscd}
+%\usepackage{gensymb}
+\usepackage[]{units}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{physics}
+\usepackage{multimedia} % movies!
+\usepackage[export]{adjustbox} % crop graphics
+
+\usepackage{pgfpages}
+\usepackage{ifthen} % package required
+\usepackage[subpreambles=true]{standalone}
+\usepackage{appendixnumberbeamer}
+\usepackage{rotating}
+
+\setbeameroption{show notes on second screen}
+
+%new commands
+\newcommand{\der}[2]{\frac{d#1}{d#2}}
+\newcommand{\nder}[3]{\frac{d^#1 #2}{d #3 ^ #1}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\npder}[3]{\frac{\partial ^#1 #2}{\partial #3^#1}}
+\newcommand{\sentencelist}{def}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\lined}{\overbar}
+\newcommand{\perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand{\comb}[2]{{}^{#1}C_{#2}}
+\newcommand{\intall}{\int_{-\infty}^{\infty}}
+\newcommand{\Var}[1]{\text{Var}\left(#1\right)}
+\newcommand{\E}[1]{\text{E}\left(#1\right)}
+\newcommand{\define}{\equiv}
+\newcommand{\diff}[1]{\mathrm{d}#1}
+\newcommand{\empy}[1]{{\color{darkorange}\emph{#1}}}
+\newcommand{\empr}[1]{{\color{cardinalred}\emph{#1}}}
+
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{definition}
+
+\newcommand{\examplebox}[2]{
+\begin{tcolorbox}[colframe=darkcardinal,colback=boxgray,title=#1]
+#2
+\end{tcolorbox}}
+
+\newcommand{\eld}[1]{\frac{d}{dt}(\frac{\partial L}{\partial \dot #1}) - \frac{\partial L}{\partial #1}=0}
+\newcommand{\euler}[1]{\frac{\partial L}{\partial #1}-\frac{d}{dt}(\frac{\partial L}{\partial \dot #1})}
+\newcommand{\eulerg}[1]{\frac{\partial g}{\partial #1}-\frac{d}{dt}(\frac{\partial g}{\partial \dot #1})}
+\newcommand{\divg}[1]{\nabla\cdot #1}
+\newcommand{\prob}[1]{P(#1\vert I)}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\beamertemplatenavigationsymbolsempty
+
+\addtobeamertemplate{footnote}{\hskip -1.8em}{}
+
+% ================================ %
+%      Section dividers            %
+\newboolean{sectiontoc}
+\setboolean{sectiontoc}{true} % default to true
+\AtBeginSection[]
+{
+  \ifthenelse{\boolean{sectiontoc}}{
+    \begin{frame}<beamer>{Gliederung}
+      \tableofcontents[currentsection]
+    \end{frame}
+  }
+}
+
+\newcommand{\sectionNoDivider}[1]{
+  \setboolean{sectiontoc}{false}
+  \section{#1}
+  \setboolean{sectiontoc}{true}
+}
+
+% \newcommand<>{\makered}[1]{{\color#2{red}#1}}
+% \renewcommand<>{\hyperlink}[2]{\only#3{\beameroriginal{\hyperlink}{#1}{#2}}}
+\newcommand<>{\nakedfootnote}[1]{%
+  \begingroup
+  \renewcommand<>\thefootnote{}\footnote#2{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\AtBeginSection[]
+{
+	\ifthenelse{\boolean{sectiontoc}}{
+	  \begin{frame}<beamer>
+	    \frametitle{\insertsectionhead}
+	    \tableofcontents[currentsection,hideallsubsections]
+	  \end{frame}
+	}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline for \insertsectionhead}
+    \tableofcontents[
+        currentsection,
+        currentsubsection,
+        subsectionstyle=show/shaded/hide
+    ]
+  \end{frame}
+}
+
+\usetheme{Stanford}
+\input{./style_files_stanford/my_beamer_defs.sty}
+\logo{\includegraphics[height=0.5in]{./style_files_stanford/SU_New_BlockStree_2color.png}}
+
+
+
+\title[\insertsectionhead]{Causal models of brain dynamics}
+% \title[PhD Qualifying Exam]{Causal models of brain dynamics}
+\subtitle{Unsupervised learning of optogenetic experiments via deep generative models}
+
+
+
+\begin{document}
+
+
+
+\author[Tyler Benster, Qualifying Exam]{
+	\begin{tabular}{c}
+	\Large
+	Tyler Benster\\
+    \footnotesize
+    Deisseroth and Druckmann Labs
+\end{tabular}
+\vspace{-2ex}
+}
+
+\institute{
+	\vspace{2ex}
+	\includegraphics[height=0.4in]{./style_files_stanford/SU_New_BlockStree_2color.png}\\
+	Qualifying Exam\\
+	Neurosciences PhD Program\\
+	Stanford University}
+
+\date{June 17, 2019}
+
+\begin{noheadline}
+\begin{frame}\maketitle\end{frame}
+\end{noheadline}
+
+%%%%%%%%%%%%%%%%%%%% Actual start %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer>
+    \frametitle{Roadmap}
+    \tableofcontents[subsectionstyle=hide]\
+		\note[item]{I will first talk about why my overall goal is predicting neural activity, and discuss the importance of causal models as opposed to merely descriptive ones. I will further motivate this modeling goal by describing applications that are enabled by this approach.}
+		\note[item]{In my first aim, I propose that a reasonable direction is to eschew biological plausibility and leverage state-of-art deep learning networks for predicting neural activity, and show that this approach outperforms current brain-wide modeling.}
+		\note[item]{For my second aim, I propose a model-based approach to choosing optogenetic stimulation patterns such that we efficiently learn the best model parameters.}
+		\note[item]{Finally, in my third aim, I suggest methods to incorporate biological priors as well as explicitly extract biological hypotheses.}
+\end{frame}
+
+\newcommand{\aimOne}{Aim 1: Spatial modeling with deep generative models}
+\newcommand{\aimTwo}{Aim 2: Optogenetic active learning}
+\newcommand{\aimThree}{Aim 3: Contribution of cell-types and circuit motifs}
+\newcommand{\qOne}{What is the most effective approach to predict whole-brain observations?}
+\newcommand{\qTwo}{How do we resolve model underdetermination?}
+\newcommand{\qThree}{Do model substructures map to underlying biology?}
+
+\input{00_roadmap}
+\input{0_motivation}
+\input{1_aim1}
+\input{2_aim2}
+\input{3_aim3}
+
+\begin{frame}[t]{Conclusion}
+	\begin{itemize}
+		\item \aimOne \begin{itemize}
+				\item Spatial modeling outperforms point process modeling in prediction accuracy
+				\item Next: repeat experiments and analyze tail movement prediction
+			\end{itemize}
+		\item \aimTwo \begin{itemize}
+			\item Established theoretical foundation for selecting optimal optogenetic stimuli to reduce model uncertainty
+			\item Next: create transgenic and validate single cell activation
+		\end{itemize}
+		\item \aimThree \begin{itemize}
+			\item Acquired preliminary dataset with co-registered functional imaging and excititory \& inhibitory staining
+			\item Next: use model to predict cell type and evaluate influence of cell type on dynamics
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\input{4_appendix}
+
+\end{document}

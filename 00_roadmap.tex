@@ -1,0 +1,52 @@
+\begin{frame}{Whole-brain prediction facilitates construction of causal models}
+  \begin{columns}[t]
+    \column{0.31\textwidth}
+    \uncover<1->{
+      \resizebox{\textwidth}{!}{\input{figs/big_picture_A}}
+    }
+    \column{0.65\textwidth}
+    \only<2>{
+      \resizebox{\textwidth}{!}{\input{figs/big_picture_B}}
+    }
+    \only<3->{
+      \resizebox{\textwidth}{!}{\input{figs/big_picture_C}}
+    }
+  \end{columns}
+  \uncover<4->{
+    \begin{itemize}
+      \item Observing whole-brain $\rightarrow$ fewer latent variables
+      \item Interventions enable building causal model
+      \item Causal models aid applications and interpretations
+    \end{itemize}
+  }
+  \note[item]{Data-driven approach may result in empirically more accurate model.}
+    \note<4->[item]{Behavior is encoded by populations of neurons distributed across whole-brain.}
+\end{frame}
+
+\begin{frame}{\aimOne}
+  \textbf{\qOne}
+  \begin{itemize}
+    \item State-of-art performance in video prediction is achieved by deep generative models
+    \item Collected preliminary brain-wide calcium data during an optomotor behavior
+    \item Initial modeling results suggest that spatial modeling out-performs traditional point process models of neurons
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\aimTwo}
+  \textbf{\qTwo}
+  \begin{itemize}
+    \item For complex models fit to finite observations, multiple choices of parameters may perform equally well
+    \item We can resolve this by testing if model substructures are causal with optogenetics
+    \item First experiment failed due to poor optogenetic activation, but a new more-sensitive opsin will make the experiment easier
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\aimThree}
+  \textbf{\qThree}
+  \begin{itemize}
+    \item \emph{in situ} hybridization (ISH) and connectome data contribute to understanding of colored graphs that underlie functional observations
+    \item First attempt to add excitatory and inhibitory staining as an additional model input modestly hurt performance
+    \item Training model to predict ISH data will force model to maintain representation of cell type
+    \item Known circuit motifs can be used as a prior, or we can try to discover structure using structure active learning
+  \end{itemize}
+\end{frame}

@@ -1,0 +1,72 @@
+% \documentclass[tikz,crop]{standalone}
+\documentclass[border=15pt, multi, tikz, pgfmath, ifthen, xcolor]{standalone}
+\usepackage{tikz, xcolor, pgfmath, ifthen}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{positioning}
+
+\tikzstyle{decision} = [diamond, draw, text width=4.5em,
+                        text badly centered, node distance=2cm,
+                        inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, text width=5em,
+                     text centered, rounded corners,
+                     minimum height=4em, node distance=3cm]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse, node distance=2.5cm, minimum height=2em]
+\tikzstyle{blank} = [node distance=1cm]
+
+\tikzstyle{square} = [regular polygon,regular polygon sides=4]
+
+\tikzstyle{var} = [minimum size=2em]
+\tikzstyle{random} = [circle, minimum width=10mm, draw, inner sep=0pt, font=\scriptsize]
+\tikzstyle{rnn} = [square, minimum width=12mm, minimum height=2mm, draw, inner sep=0pt, font=\scriptsize]
+\tikzstyle{encoder} = [trapezium, minimum width=10mm, minimum height=6mm, trapezium angle=60,
+                        inner sep=0pt, draw, font=\scriptsize]
+
+\begin{document}
+\def\xtime{{"t-2","t-1","t","t+1","t+2","t+3"}}
+
+% one day: draw stack https://tex.stackexchange.com/questions/171998/stack-figures-in-horizontal-plane-in-3d-rectangular-shape-without-loss-of-qualit
+\begin{tikzpicture}[node distance = 2cm, auto]
+    \foreach \t [count=\n,evaluate=\n as \mytime using ({\xtime[int(\n-1)]})] in {-2,-1,0} {
+        % Place nodes
+        \pgfmathsetmacro{\num}{int(\t-1)}
+        \ifthenelse{\n=1}
+            {\node [var] (x\t) {$x_{\mytime}$};}
+            {\node [var, right=8mm of xh\num] (x\t) {$x_{\mytime}$};}
+        \node [var, right=8mm of x\t] (xh\t) {$\hat{x}_{\mytime}$};
+
+        \node [encoder, above=6mm of x\t] (e\t) {e};
+        \node [encoder, above=6mm of xh\t] (d\t) {d};
+
+        \node [random, above right=6mm and 1.5mm of e\t] (z\t) {$z_{\mytime}$};
+        \node [rnn, above=6mm of z\t] (r\t) {RNN};
+        \node [var, above=6mm of r\t] (c\t) {$c_{\mytime}$};
+
+        % Draw edges
+        \path [line] (x\t) -- (e\t);
+        \path [line] (e\t) -- (z\t);
+        \path [line] (z\t) -- (r\t);
+        \path [line] (r\t) -- (c\t);
+        \path [line] (z\t) -- (d\t);
+        \path [line] (d\t) -- (xh\t);
+        \ifthenelse{\n=1}
+            {}
+            {\path [line] (r\num) -- (r\t);}
+    }
+
+    \foreach \t [count=\n,evaluate=\n as \mytime using ({\xtime[int(\n+2)]})] in {1,2,3} {
+        % Place nodes
+        \pgfmathsetmacro{\num}{int(\t-1)}
+        \ifthenelse{\n=1}
+            {\node [var, right=8mm of xh\num] (x\t) {$x_{\mytime}$};}
+            {\node [var, right=8mm of x\num] (x\t) {$x_{\mytime}$};}
+        \node [encoder, above=6mm of x\t] (e\t) {e};
+        \node [random, above=4mm of e\t] (z\t) {$z_{\mytime}$};
+
+        % Draw edges
+        \path [line] (x\t) -- (e\t);
+        \path [line] (e\t) -- (z\t);
+        \path [line, dashed, bend right] (c0) -- (z\t);
+    }
+\end{tikzpicture}
+\end{document}
