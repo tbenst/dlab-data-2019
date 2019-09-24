@@ -1,89 +1,84 @@
 \section{Motivation \& Background}
 
-\begin{frame}{Model-based summaries of health vs disease}
-	\centering
-	\includegraphics[width=0.5\textwidth]{media/cars_driving}\nakedfootnote{flickr:zigazou76 CC BY 2.0}
-	% \includegraphics<1>[height=0.5\textheight]{media/garfield_without.png}\nakedfootnote{flickr:zigazou76 CC BY 2.0}
-	% \uncover<2>{\includegraphics[height=0.5\textheight]{media/garfield.png}\nakedfootnote{flickr:zigazou76 CC BY 2.0}}
-	\note<1>{
-		Let's draw an analogy for healthy vs diseased dynamics: safe vs dangerous driver.
-		\begin{enumerate}
-			\item static vs temporal: in defensive driving, want to keep staggered position. In static view, minivan driver is dangerous but in temporal view may be healthy as is simply passing the suburu.
-			\item unit vs population: consider the black sedan following the minivan. If it maintains a consistent following distance by accelerating and braking, then a safe driver, but in a vaccuum with no information of other cars, looks completely erratic.
-		\end{enumerate}
-	}
-	\uncover<2>{
-		\makebox[\textwidth][c]{%
-			\includegraphics[width=1.1\textwidth]{media/depression_heatmap}
-		}\nakedfootnote<2>{Drysdale, Grosenick, et al. \emph{Nature Medicine}. 2016}
-	}
-	\note<2>{
-		Four functional connectivity "biotypes" from fMRI study of depressed patients. Has no notion of time (one true underlying phenotype capturing different snapshots?), and is not a causal model--where should we stim to nudge dynamics back towards health?
 
-		Applications:
+\begin{frame}[t]{The probability distribution revolution}
+	\begin{multicols}{2}
 		\begin{itemize}
-				\item muck with gene, a lot changes $\rightarrow$ create summary
-				\item ``outlierness" of brain dynamics
-				\item model gives reduction of whole data
+			\item Karl Pearson (1857-1936) came with the idea that scientific measurements should be conceived as coming from probability distributions.
+			\item Scientific measurements are just random reflections of the underlying truth that is the distribution.
+			\item “A great book on the
+history of statistics” $\rightarrow$ Aaron
+			\item
 		\end{itemize}
 
-		Bern \& Molley  2013 for reliability of resting state fMRI.
+		\columnbreak
 
-		\textbf{transition:} lack of spatial resolution motivates jump model organism where we can observe whole-brain at cellular resolution.
-	}
-\end{frame}{}
+		\includegraphics[width=0.25\textwidth]{media/distribution}
+		\linebreak
+		\includegraphics[width=0.25\textwidth]{media/book}
+	\end{multicols}
 
-% \begin{frame}{Goal: causal inference of neuronal computation}
-%     \begin{center}
-%         \includegraphics[height=0.9\textheight]{media/marr_levels.jpg}
-%         \footnote{Rebbeca Wicker. \emph{Noam Chomsky, Linguistics and AI}. 2017}
-%     \end{center}{}
-% 		\note{Finding the goal of the computation is not always possible--e.g. resting state. So we use a surrogate goal: prediction of future brain activity. With this, we can create descriptions at the algorithmic and implementational levels.}
-% \end{frame}{}
+	\note{Lets start with a bit of history. The idea that scientific measurements are best understood as reflecting underlying probabilities distributions is a relatively new idea.
 
-\begin{frame}{Challenge: high underlying complexity}{as shown by partial zebrafish projectome}
-				\centering
-				\begin{figure}
-					\adjincludegraphics[trim={0 {.39\height} 0 0},width=0.55\textwidth,clip]{media/projectome.jpg}
-					\caption{$\sim80,000$ neurons at 7 days post fertilization (dpf)\nakedfootnote{Hildebrand, Cicconet, et al. \emph{Nature} 2017}\nakedfootnote{Hill, Howard, et al. 2003}}
-				\end{figure}
+It was a now famous thinker and scientist, Karl Pearson (of the Pearson correlation coefficient) who conceived the idea in late 18 hundreds.
 
-    % \begin{multicols}{2}
-    %     \includegraphics[width=0.49\textwidth]{media/lfm.png}
-    %     \,
-    %     1.4 TB/hr.\nakedfootnote{Noah Young. \emph{unpublished}. 2019}
-		% 		\uncover<2>{
-	  %       \includegraphics[width=0.5\textwidth]{media/em.png}
-	  %       \,
-	  %       20-100 TB / mm\textsuperscript{3}.
-		% 		}
-    % \end{multicols}
-		% \nakedfootnote<2>{Hildebrand et al. \emph{Nature}. 2017}
-\end{frame}{}
+He realized randomness was inherent part of nature and of scientific measure, and he formulated the idea that all measurments should be conceived of as coming from an underlying probability distributions.
 
-\begin{frame}{Opportunity: massive datasets}{Whole-brain imaging \& stimulation}
-				\centering
-		    \includegraphics[width=1.1\textwidth,center]{media/drn_opto}
-        \linebreak
-        \textbf{left:} increase in activity (green), decrease in activity (magenta), optogenetic stimulation sites (yellow)
-				\textbf{right:} dorsal raphe nucleus (DRN), dorsal hindbrain (DHB), and inferior olive (IO)
-				\nakedfootnote{Vladimirov, Wang, et al. 2018}
+In other words, the underlying truth is the distrubutions, and the measurements are just random reflections of this truth.  At the time, this was a revolutionary idea.}
 \end{frame}
 
+\begin{frame}[t]{The power of probability distributions}
+	Distributions allow scientists to:
+	\begin{itemize}
+		\item Understand scientific measurement
+		\item Predict the probability of specific data
+		\item Test specific hypothesis (p-values)
+		\item Produce generative models
+		\item Better conceptual understanding data.
+	\end{itemize}
+	\note{And it was an idea that revolutized science.
 
-\begin{frame}{Validate modeling results through comparison to well-characterized Mauthner circuit}
-	\centering
-	\includegraphics[height=0.9\textheight]{media/mauthner_circuit.png}
-	\nakedfootnote{Medan \& Preuss, 2014}
-	\note{M-cell AP $\rightarrow$ negative field potential of 20–40 mV close to axon hillock \tiny Schematic shows the paired Mauthner cells (M-cells), their visual and statoacoustic inputs and cranial inhibitory networks. Each M-cell receives bilateral visual inputs and ipsilateral auditory inputs. The schematic shows only the left auditory afferents (red) and the right visual afferents (orange). The auditory pathway is direct, as hair cells activate auditory nerve afferents with synapses on the M-cell’s lateral dendrite and also excite bilaterally-projecting feedforward inhibitory interneurons, the commissural PHP cells (blue). The collateral PHP neuron population (coll., light blue) mediates recurrent (feedback) inhibition triggered by firing of either ipsilateral or contralateral M-cells that is conveyed through the cranial relay neurons (CR, green). The polysynaptic visual pathway conveys information from the retina to the optic tectum (OT) which sends afferents that contact both M-cells ventral dendrite. M-cell axons exit the medulla through the spinal cord to make direct contact with primary motoneurons (PM) and indirect contanct with other motoneurons (M) through a set of interneurons (DI). Spinal inhibitory networks and cranial motoneurons are omitted to simplify the schematic. A single action potential in one of the M-cell produces contraction of contralateral trunk muscles producing the characteristic C-shape that initiates the startle response or C-start (B).}
+	It allowed scientists to:
+	\begin{itemize}
+		\item Better understand their measurements.
+		\item To make predictions about what data they should expect to observe.
+		\item To test scientific hypotheses in a mathematically rigorous way.
+		\item To build generative models of their data, and to test how well those models explain the observed measurments.
+		\item And in general to have a better conceptual understanding of the data they generated.
+	\end{itemize}
+}
 \end{frame}
+%--- Next Frame ---%
 
-%
-% \begin{frame}{Artificial intelligence}{motifs through space and time}
-% 		\centering
-% 		\makebox[\textwidth][c]{%
-% 			\includegraphics[width=1.1\textwidth]{media/block_search}
-% 		}\nakedfootnote{Zhong, et al. \emph{CVPR`18}}
-% 		\note[item]{We may discover neuroscience motifs that are useful for AI.}
-% 		\note[item]{Fitting neural data as a regularizer}
-% \end{frame}{}
+\begin{frame}[t]{Estimating distributions from data}
+	\begin{multicols}{2}
+		Low-Dimensional:
+		\begin{itemize}
+			\item Great tools to fit and understand the underlying probability distribution of data.
+		\end{itemize}
+		\vfill\columnbreak
+		High-Dimensional:
+		\begin{itemize}
+			\item In some cases, classical statistical tools are insufficient.
+			\item Problematic for modern neuroscience: \begin{itemize}
+				\item Thousands of electrodes.
+				\item Millions of voxels.
+			\end{itemize}
+		\end{itemize}
+	\end{multicols}
+	\note{Since Pearson’s early work, scientists and statisticians have devised an enormous number of related tools.
+
+For example they’ve defined many many distributions, and they’ve created tools for working with those distrubitons (calculating likelihoods and fitting them).
+
+One class of tools aim to estimate the underlying distribution that generated an observed empirical measurment.
+
+These tools are highly effective when data is low dimensional, but they are sometimes insufficient when data is high dimensional.}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{How can we build statistical distributions for neuroscience datasets?}
+	\movie[]{\includegraphics[width=0.7\textwidth,center]{media/zfish_first.png}}{media/zfish_imaging.mp4}
+	\nakedfootnote{\url{https://www.youtube.com/watch?v=CXYp9xCUhe0}}
+	\note{For example, consider whole brain imaging data from the zebrafish.  This data can have millions of dimensions, which makes estimating the understanding joint probability distribution difficult.  The number of possible states is enormous.  The voxels are not independent.  You can’t simply make a histogram or a heat-map.
+			}
+\end{frame}

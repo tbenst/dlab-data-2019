@@ -126,3 +126,36 @@
 		\note{Ask model what is important; here we use backprop}
 		% \note[item]{ideally show (1) variance heatmap (2) backprop very active neuron (3) backprop very quiet neuron (4) forward autodiff of a neuron (influence mapping)}
 \end{frame}{}
+
+\begin{frame}{ Voltron 549 imaging }{ Widefield @ 500Hz with Orca Flash 4.0 V2+}
+    \includegraphics[width=\textwidth]{media/voltron_example_trace}
+		\note{at first excited, then noticed video had major motion artifacts}
+\end{frame}{}
+
+\begin{frame}{ Voltron 549 imaging }{ Motion confounds purported APs}
+	\movie[]{\includegraphics[width=\textwidth,center]{media/voltron_vid.png}}{media/voltron_vid.mp4}
+\end{frame}{}
+
+\begin{frame}{ Voltron pre vs post motion correction }{ After non-rigid motion correction, no APs are visible}
+    \includegraphics[width=\textwidth]{media/voltron_example_trace}
+    \includegraphics[width=\textwidth]{media/voltron_nonrigid}
+		\note{at first excited, then noticed video had major motion artifacts}
+\end{frame}{}
+
+
+\begin{frame}{ Voltage dye in the near-infrared II window (1000nm-1700nm) }{ }
+	\movie[]{\includegraphics[height=0.45\textheight,center]{media/dai_voltage.png}}{media/dai_voltage.mp4}
+	\includegraphics[height=0.4\textheight,center]{media/Spectra.png}
+	\nakedfootnote{Ye Tian, Hongjie Dai \emph{unpublished}}
+\end{frame}{}
+
+\begin{frame}{ Latent space interpretation }{ }
+	\begin{columns}
+		\column{0.5\textwidth}
+		\includegraphics[width=\textwidth]{media/dai_pca.png}
+		PCA
+		\column{0.5\textwidth}
+		\includegraphics[width=\textwidth]{media/voltage_latent}
+		Latent encoding from conv-VAE
+\end{columns}
+\end{frame}{}
